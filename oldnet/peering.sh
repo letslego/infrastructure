@@ -11,7 +11,7 @@ function usage {
 }
 
 [ -z "$1" ] && usage && exit 1
-[ -z "$2" ] && usage && exit 1
+# [ -z "$2" ] && usage && exit 1
 
 # Primitive YAML parser for Bash, https://stackoverflow.com/a/21189044/2068670
 # By Stefan Farestam, updated for basic YAML array support
@@ -38,20 +38,28 @@ eval $(parse_yaml roles/cjdns/defaults/main.yml)
 eval $(parse_yaml secrets_plaintext/secrets.yml)
 
 hosts=$(ansible $1 --list-hosts)
-port=$(echo $cjdns_udp_interfaces_bind | cut -d':' -f2)
+# port=$(echo $cjdns_udp_interfaces_bind | cut -d':' -f2)
 
-eval "password=\$cjdns_authorized_passwords""_$2"
-[ -z "$password" ] && echo "unknown password: $2" && exit 1
+# eval "password=\$cjdns_authorized_passwords""_$2"
+# [ -z "$password" ] && echo "unknown password: $2" && exit 1
 
 for host in $hosts; do
-  eval "pubkey=\$cjdns_identities_$host""_public_key"
-  ipAddr=$(ansible $host -m debug -a 'var=ansible_ssh_host' -o | cut -d'>' -f 3 | jq -r '.var.ansible_ssh_host')
+#   eval "pubkey=\$cjdns_identities_$host""_public_key"
+#   ipAddr=$(ansible $host -m debug -a 'var=ansible_ssh_host' -o | cut -d'>' -f 3 | jq -r '.var.ansible_ssh_host')
 
-  [ -z "$pubkey" ] || cat << JSON
-    "$ipAddr:$port": {
-        "peerName": "$host.i.ipfs.io",
-        "publicKey": "$pubkey",
-        "password": "$password"
-    },
-JSON
+#   [ -z "$pubkey" ] || cat << JSON
+#     "$ipAddr:$port": {
+#         "peerName": "$host.i.ipfs.io",
+#         "publicKey": "$pubkey",
+#         "password": "$password"
+#     },
+# JSON
+
+  eval "ipv6=\$cjdns_identities_$host""_ipv6"
+  eval "pubkey=\$cjdns_identities_$host""_public_key"
+  eval "privkey=\$cjdns_identities_$host""_private_key"
+  echo $host'_cjdns_cjdns="'$ipv6'"'
+  echo $host'_cjdns_public_key="'$pubkey'"'
+  echo $host'_cjdns_private_key="'$privkey'"'
+  echo
 done

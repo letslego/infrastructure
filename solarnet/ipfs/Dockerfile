@@ -4,7 +4,9 @@ MAINTAINER Lars Gierth <larsg@systemli.org>
 # This IPFS repo should be copied into ./go-ipfs
 ADD . /go/src/github.com/ipfs/go-ipfs
 
-RUN cd /go/src/github.com/ipfs/go-ipfs && make install && rm -rf /go/src/github.com
+RUN go get -u github.com/whyrusleeping/gx && go get -u github.com/whyrusleeping/gx-go \
+  && cd /go/src/github.com/ipfs/go-ipfs && make install \
+  && rm -rf /go/src/github.com
 
 EXPOSE 8080 4001 4002/udp 5001
 

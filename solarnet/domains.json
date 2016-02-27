@@ -1,0 +1,91 @@
+Hello dear cyborg, human, or otherwise beautiful being.
+This is the start-here page of the infrastructure side of ipfs.io.
+
+It is especially meant for:
+
+- the IPFS infrastructure team who operate ipfs.io
+- anyone interested in a living IPFS case study
+
+Private services:
+
+- private networking using cjdns
+- metrics.ipfs.team
+- archives access
+- infrastructure deployment
+
+Public services:
+
+- IPFS' default bootstrap nodes
+- a public IPFS gateway
+- website hosting through IPNS+DNS
+- the ipfs project website
+- storage of archive mirrors
+- dist.ipfs.io, ipfs distributions download
+- status.ipfs.io, public metrics dashboard
+- cjdns connectivity for gateway and bootstrappers
+- cjdns public peers
+
+Tools that have emerged from IPFS operations:
+
+- Provsn
+- HSHCA by Neocities
+- multireq
+- go-dnslink
+
+
+{
+  // infra services
+  "ipfs.team": {
+    "@": {
+      "CNAME": [ "gateway.ipfs.io." ],
+      "TXT": [ "dnslink=/ipfs/Qminfra" ]
+    },
+    "metrics": {
+      "AAAA": "fc00::"
+    }
+  },
+
+  // infra inventory
+  "i.ipfs.team": {
+    "earth": {
+      "A": [ "178.62.158.247" ],
+      "AAAA": [ "2a03:b0c0:0:1010::23:1001" ]
+    }
+  },
+  "v.ipfs.team": {
+    "earth": {
+      "AAAA": [ "fc29:9fda:3b73:c1d2:9302:31e3:964c:144c" ]
+    }
+  },
+
+  // core ipfs.io
+  "ipfs.io": {
+    "@": {
+      "A": [ "178.62.158.247" ],
+      "AAAA": [ "2a03:b0c0:0:1010::23:1001" ],
+      "TXT": [ "dnslink=/ipfs/Qmwebsite" ]
+    },
+    "fc": {
+      "AAAA": [ "fc29:9fda:3b73:c1d2:9302:31e3:964c:144c" ]
+    }
+  },
+  "gateway.ipfs.io": {
+    "@": {
+      "A": [ "178.62.158.247" ],
+      "AAAA": [ "2a03:b0c0:0:1010::23:1001" ],
+    },
+    "fc": {
+      "AAAA": [ "fc29:9fda:3b73:c1d2:9302:31e3:964c:144c" ]
+    }
+  },
+
+  // pages
+  "dist.ipfs.io": {
+    "@": {
+      "CNAME": [ "gateway.ipfs.io." ]
+    },
+    "_dnslink": {
+      "TXT": [ "dnslink=/ipfs/Qmdist" ]
+    }
+  }
+}

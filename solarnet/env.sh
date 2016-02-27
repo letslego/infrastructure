@@ -3,7 +3,6 @@
 provsn_hosts=(pluto neptune uranus saturn jupiter venus earth mercury pollux biham nihal phobos deimos)
 # provsn_hosts=(pluto neptune uranus saturn jupiter venus earth mercury pollux biham nihal)
 # provsn_hosts=(pluto neptune uranus saturn jupiter venus earth mercury)
-provsn_groups=()
 
 all_ssh_options="-o ConnectTimeout=5"
 all_omit_build=(secrets/ipfs)

@@ -78,11 +78,20 @@ provsn_usage() {
 provsn_upload() {
   local hosts=($1)
 
+  sshhosts=()
   for host in ${hosts[@]}; do
-    echo "$host: upload"
-    ssh $(lookup ssh_options) $(lookup ssh) "rm -rf /opt/provsn"
-    scp -qr $(lookup ssh_options) "$provsn_root/.build/$host" "$(lookup ssh):/opt/provsn"
+    sshhosts+=("-H $(lookup ssh)")
   done
+  echo parallel-ssh -i -p 20 "${sshhosts[@]}" "rm -rf /opt/provsn"
+  parallel-ssh -i -p 20 "${sshhosts[@]}" "rm -rf /opt/provsn"
+  echo parallel-scp -v -i -r -p 20 "${sshhosts[@]}" "$provsn_root/.build" /opt/provsn
+  parallel-scp -v -r -p 20 "${sshhosts[@]}" "$provsn_root/.build" /opt/provsn
+
+  # for host in ${hosts[@]}; do
+  #   echo "$host: upload"
+  #   ssh $(lookup ssh_options) $(lookup ssh) "rm -rf /opt/provsn"
+  #   scp -qr $(lookup ssh_options) "$provsn_root/.build/$host" "$(lookup ssh):/opt/provsn"
+  # done
   echo "upload success"
   host=
 }
@@ -91,12 +100,17 @@ provsn_exec() {
   local hosts=($1)
   local cmd="$2"
 
+  sshhosts=()
   for host in ${hosts[@]}; do
-    echo "$host: exec $cmd"
-    ssh $(lookup ssh_options) $(lookup ssh) "cd /opt/provsn && $cmd"
+    # echo "$host: exec $cmd"
+    # ssh $(lookup ssh_options) $(lookup ssh) "cd /opt/provsn && $cmd"
+    sshhosts+=("-H $(lookup ssh)")
   done
-  echo "exec success"
   host=
+  sshopts=$(lookup ssh_options)
+  echo parallel-ssh -i -p 20 -t 0 -x "'$sshopts'" "${sshhosts[@]}" "$cmd"
+  parallel-ssh -i -p 20 -t 0 -x "$sshopts" "${sshhosts[@]}" "cd /opt/provsn && $cmd"
+  echo "exec success"
 }
 
 provsn_build() {
