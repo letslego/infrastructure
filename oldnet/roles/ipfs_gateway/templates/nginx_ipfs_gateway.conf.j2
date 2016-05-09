@@ -90,6 +90,7 @@ server {
 
     resolver 8.8.8.8 8.8.4.4;
 
+    # TODO this needs an if host = {,gateway.,v03x.,v04x.}ipfs.io block
     location /blog/ {
         rewrite "^/blog(/.*)$" $1 break;
         proxy_set_header Host blog.ipfs.io;
@@ -98,6 +99,7 @@ server {
         proxy_read_timeout 1800s;
     }
 
+    # TODO this needs an if host = {,gateway.,v03x.,v04x.}ipfs.io block
     location /refs/ {
         rewrite "^/refs(/.*)$" $1 break;
         proxy_set_header Host refs.ipfs.io;
