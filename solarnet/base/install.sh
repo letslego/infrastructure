@@ -12,6 +12,7 @@ if [ ! -z "$(git diff "$dir/authorized_keys" authorized_keys || echo new)" ]; th
 fi
 
 pkgs=()
+which runit >/dev/null || pkgs+=(runit)
 which htop >/dev/null || pkgs+=(htop)
 which iftop >/dev/null || pkgs+=(iftop)
 which mosh >/dev/null || pkgs+=(mosh)
