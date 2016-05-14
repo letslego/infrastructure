@@ -48,4 +48,4 @@ phobos_ssh="root@104.131.3.162"
 phobos_units=(${baseunits[@]})
 
 deimos_ssh="root@46.101.230.158"
-deimos_units=(${baseunits[@]})
+deimos_units=(${baseunits[@]} ipfs pages)
