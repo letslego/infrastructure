@@ -2,7 +2,7 @@
 
 set -e
 
-for page in $(comm -23 pages /opt/pages/pages); do
+for page in $(comm -23 out/pages /opt/pages/pages); do
   echo "$host: create page $page"
   ./sshcommand create $page "/opt/pages/$page/page.sh"
   cp -avx "out/$page" "/opt/pages/$page"
@@ -10,7 +10,7 @@ for page in $(comm -23 pages /opt/pages/pages); do
   sv start "pages-$page"
 done
 
-for page in $(comm -12 pages /opt/pages/pages); do
+for page in $(comm -12 out/pages /opt/pages/pages); do
   echo "$host: remove page $page"
   sv stop "pages-$page"
   unlink "/etc/sv/pages-$page"
