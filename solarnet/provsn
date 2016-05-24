@@ -27,10 +27,11 @@ provsn_template() {
   printf %s\\n "$out" > "$dest"
 }
 
+# priority: host, groups, default
 var() {
   local key="$1"
   [ "$2" ] && key="$1_$2"
-  local prefixes="all_ $host""_"
+  local prefixes="default_ $host""_"
 
   # default to an error message, in case none of the prefixes yields a value
   for p in $prefixes; do
@@ -191,6 +192,9 @@ units)
   ;;
 hosts)
   echo $2
+  ;;
+groups)
+  host
   ;;
 "")
   provsn_usage
