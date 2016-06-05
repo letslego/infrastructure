@@ -13,6 +13,7 @@ mercury     ansible_ssh_host=178.62.61.185
 
 [metrics]
 phobos      ansible_ssh_host=104.131.3.162
+errai       ansible_ssh_host=46.101.167.37
 
 [util]
 deimos      ansible_ssh_host=46.101.230.158

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-provsn_hosts=(pluto neptune uranus saturn jupiter venus earth mercury pollux biham nihal phobos)
+provsn_hosts=(pluto neptune uranus saturn jupiter venus earth mercury pollux biham nihal phobos deimos errai)
 # provsn_hosts=(pluto neptune uranus saturn jupiter venus earth mercury pollux biham nihal)
 # provsn_hosts=(pluto neptune uranus saturn jupiter venus earth mercury)
 provsn_groups=()
@@ -47,6 +47,9 @@ nihal_units=(${baseunits[@]} ${storageunits[@]})
 
 phobos_ssh="root@104.131.3.162"
 phobos_units=(${baseunits[@]})
+
+errai_ssh="root@46.101.167.37"
+errai_units=(${baseunits[@]})
 
 deimos_ssh="root@46.101.230.158"
 deimos_units=(${baseunits[@]})
